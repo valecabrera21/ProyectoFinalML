@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -666,7 +666,7 @@ document.write(`
     <span class="n">ljung</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">jarque</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">residuo</span><span class="p">)</span>  
     <span class="n">jarque</span> <span class="o">=</span> <span class="n">jarque</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">ljung</span><span class="p">,</span> <span class="n">jarque</span>
+    <span class="k">return</span> <span class="n">ljung</span><span class="p">,</span> <span class="n">jarque</span><span class="p">,</span> <span class="n">residuo</span>
 </pre></div>
 </div>
 </div>
@@ -763,7 +763,7 @@ document.write(`
 <span class="n">mapeknn</span> <span class="o">=</span><span class="n">MAPE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">ypredknn</span><span class="p">)</span>
 <span class="n">maeknn</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredknn</span><span class="p">)</span>
 <span class="n">r2knn</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredknn</span><span class="p">)</span>
-<span class="n">ljungboxknn</span><span class="p">,</span> <span class="n">jarqueberaknn</span> <span class="o">=</span> <span class="n">residuos</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredknn</span><span class="p">)</span> 
+<span class="n">ljungboxknn</span><span class="p">,</span> <span class="n">jarqueberaknn</span><span class="p">,</span> <span class="n">residuosknn</span> <span class="o">=</span> <span class="n">residuos</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredknn</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
@@ -825,7 +825,8 @@ document.write(`
 <p>En cuanto a los residuos, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Ljung-Box</span> <span class="pre">(0.0747)</span></code> sugiere que <strong>no hay autocorrelación significativa</strong>, lo cual es positivo. Por otro lado, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Jarque-Bera</span> <span class="pre">(0.381)</span></code> indica que los <strong>residuos presentan distribución normal</strong>, es decir, se cumplen los dos supuestos.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_display</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="n">ypredtrainknn</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">rmsetrainknn</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">ypredtrainknn</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -834,8 +835,8 @@ document.write(`
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtrainknn</span><span class="p">)),</span> <span class="n">ypredtrainknn</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtrainknn</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Regresión KNN (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2trainknn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -857,7 +858,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ee619ea6923654d93cc6b46126e35ebf76c932298736cb0f5b1af716e637e57f.png" src="_images/ee619ea6923654d93cc6b46126e35ebf76c932298736cb0f5b1af716e637e57f.png" />
+<img alt="_images/56c6192d001cdcfdb31c9735520d8fcba3880f0a8b6e6210f99c7683940fc8af.png" src="_images/56c6192d001cdcfdb31c9735520d8fcba3880f0a8b6e6210f99c7683940fc8af.png" />
 </div>
 </div>
 <p>El rendimiento del modelo KNN disminuyó significativamente en el conjunto de prueba, pasando de un <code class="docutils literal notranslate"><span class="pre">R²</span></code>de <code class="docutils literal notranslate"><span class="pre">0.77</span></code> en entrenamiento a <code class="docutils literal notranslate"><span class="pre">0.55</span></code> en prueba, lo que indica que no logró generalizar bien datos desconocidos. Las líneas de valores predichos no logran capturar adecuadamente los picos, mostrando sensibilidad limitada a valores extremos. Aunque, en la gráfica relacionada con test, en la prueba la línea predicha sigue un patrón similar al de los valores reales, no se acerca lo suficiente, lo que evidencia que KNN no logró ajustarse correctamente a los datos.</p>
@@ -936,7 +937,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.83793330808238
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8377410519527606
 </pre></div>
 </div>
 </div>
@@ -948,7 +949,7 @@ document.write(`
 <span class="n">maperidge</span> <span class="o">=</span> <span class="n">MAPE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredridge</span><span class="p">)</span>
 <span class="n">maeridge</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredridge</span><span class="p">)</span>
 <span class="n">r2ridge</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredridge</span><span class="p">)</span>
-<span class="n">ljungboxridge</span><span class="p">,</span> <span class="n">jarqueberaridge</span> <span class="o">=</span> <span class="n">residuos</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredridge</span><span class="p">)</span>
+<span class="n">ljungboxridge</span><span class="p">,</span> <span class="n">jarqueberaridge</span><span class="p">,</span> <span class="n">residuosridge</span> <span class="o">=</span> <span class="n">residuos</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredridge</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -994,20 +995,20 @@ document.write(`
     <tr>
       <th>0</th>
       <td>RIDGE</td>
-      <td>0.358156</td>
-      <td>0.598461</td>
-      <td>15.73362</td>
-      <td>0.541129</td>
-      <td>0.837933</td>
-      <td>0.193061</td>
-      <td>0.095291</td>
+      <td>0.358581</td>
+      <td>0.598816</td>
+      <td>15.746817</td>
+      <td>0.541537</td>
+      <td>0.837741</td>
+      <td>0.192629</td>
+      <td>0.095406</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
 <p>El modelo Ridge muestra un buen rendimiento general. El <code class="docutils literal notranslate"><span class="pre">RMSE</span></code> de aproximadamente <code class="docutils literal notranslate"><span class="pre">0.59</span></code> indica que, en promedio, las predicciones tienen una desviación de <code class="docutils literal notranslate"><span class="pre">0.59</span></code> unidades respecto a los valores observados, mientras que el <code class="docutils literal notranslate"><span class="pre">MAPE</span></code>, que mide el porcentaje de error en las predicciones, es del <code class="docutils literal notranslate"><span class="pre">15%</span></code>, lo cual refleja un error moderado. El coeficiente de determinación <code class="docutils literal notranslate"><span class="pre">R²</span></code> es <code class="docutils literal notranslate"><span class="pre">0.84</span></code> aproximado, lo que significa que el modelo logra explicar el <code class="docutils literal notranslate"><span class="pre">84%</span></code> de la variabilidad en los datos.</p>
-<p>En cuanto a los residuos, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Ljung-Box</span> <span class="pre">(0.193061)</span></code> sugiere que <strong>no hay autocorrelación significativa</strong>, lo cual es positivo. Por otro lado, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Jarque-Bera</span> <span class="pre">(0.095291)</span></code> indica que los <strong>residuos presentan distribución normal</strong>, es decir, se cumplen los dos supuestos.</p>
+<p>En cuanto a los residuos, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Ljung-Box</span> <span class="pre">(0.192629)</span></code> sugiere que <strong>no hay autocorrelación significativa</strong>, lo cual es positivo. Por otro lado, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Jarque-Bera</span> <span class="pre">(0.095406)</span></code> indica que los <strong>residuos presentan distribución normal</strong>, es decir, se cumplen los dos supuestos.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1019,8 +1020,8 @@ document.write(`
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtrainridge</span><span class="p">)),</span> <span class="n">ypredtrainridge</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtrainridge</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Regresión Ridge (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2trainridge</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1042,7 +1043,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f3a270d8076028f10bc477ca3bb3905fb7bf3533aad01d79a246c8a69781499a.png" src="_images/f3a270d8076028f10bc477ca3bb3905fb7bf3533aad01d79a246c8a69781499a.png" />
+<img alt="_images/bee4130cea4a22238837a0636ffcfee27614f06ea0c9a22bcdfef201236ac70f.png" src="_images/bee4130cea4a22238837a0636ffcfee27614f06ea0c9a22bcdfef201236ac70f.png" />
 </div>
 </div>
 <p>En el modelo Ridge, el conjunto de prueba muestra un mejor rendimiento que el de entrenamiento, ya que el <code class="docutils literal notranslate"><span class="pre">R²</span></code> incrementó de <strong>0.79</strong> a <strong>0.84</strong>. Esto indica que el modelo logra generalizar bien los datos no vistos. Sin embargo, las líneas de valores predichos no logran capturar adecuadamente los picos en ambas gráficas, evidenciando una sensibilidad limitada a valores extremos. A pesar de ello, en la gráfica correspondiente al conjunto de prueba, la línea de valores predichos sigue un patrón similar al de los valores reales, aunque con desviaciones notables.</p>
@@ -1202,8 +1203,8 @@ Best alpha: 0.41363636363636364, Best max_iter: 1000, Best tol: 0.0001
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtrainlasso</span><span class="p">)),</span> <span class="n">ypredtrainlasso</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtrainlasso</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Regresión Lasso (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2trainlasso</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1225,7 +1226,7 @@ Best alpha: 0.41363636363636364, Best max_iter: 1000, Best tol: 0.0001
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/263c4d905f4005de0cf67a8eadb31f27b1897948c912258e473e70ee8682c536.png" src="_images/263c4d905f4005de0cf67a8eadb31f27b1897948c912258e473e70ee8682c536.png" />
+<img alt="_images/0b30368dac3113c3ebf18602f9ae750fd3137ea401750a85283e202f5e2c4c61.png" src="_images/0b30368dac3113c3ebf18602f9ae750fd3137ea401750a85283e202f5e2c4c61.png" />
 </div>
 </div>
 <p>En el modelo Lasso, el conjunto de prueba muestra un mejor rendimiento que el de entrenamiento, ya que el <code class="docutils literal notranslate"><span class="pre">R²</span></code> incrementó de <code class="docutils literal notranslate"><span class="pre">0.74</span></code> a <code class="docutils literal notranslate"><span class="pre">0.79</span></code>. Esto indica que el modelo tiene una capacidad aceptable para generalizar los datos no vistos. Sin embargo, las líneas de valores predichos no logran capturar adecuadamente los picos en ambas gráficas, reflejando una sensibilidad limitada a valores extremos. A pesar de esto, en la gráfica correspondiente al conjunto de prueba, la línea de valores predichos sigue un patrón similar al de los valores reales, aunque con desviaciones que demuestran un ajuste imperfecto.</p>
@@ -1291,6 +1292,7 @@ Best max_depth: 10, Best min_samples_split: 15
 </div>
 </div>
 </div>
+<p>Luego de entrenar el modelo con los datos de entrenamiento y realizar predicciones en el conjunto de validación, se evaluaron las combinaciones de hiperparámetros. La mejor de estas, que alcanzó el mayor valor de R² entre todos, fue <code class="docutils literal notranslate"><span class="pre">max_depth</span> <span class="pre">=</span> <span class="pre">10</span></code> y <code class="docutils literal notranslate"><span class="pre">min_samples_split</span> <span class="pre">=</span> <span class="pre">15</span></code>, con un <code class="docutils literal notranslate"><span class="pre">R²</span> <span class="pre">de</span> <span class="pre">0.44</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dectree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span> <span class="mi">15</span> <span class="p">)</span>
@@ -1372,6 +1374,8 @@ Best max_depth: 10, Best min_samples_split: 15
 </table>
 </div></div></div>
 </div>
+<p>A partir de la tabla, podemos ver que el modelo de árboles de decisión muestra un rendimiento moderado. El <code class="docutils literal notranslate"><span class="pre">RMSE</span></code> de aproximadamente <code class="docutils literal notranslate"><span class="pre">0.77</span></code> indica que, en promedio, las predicciones tienen una desviación de <code class="docutils literal notranslate"><span class="pre">0.77</span></code> unidades respecto a los valores observados, mientras que el <code class="docutils literal notranslate"><span class="pre">MAPE</span></code>, que mide el porcentaje de error en las predicciones, es del <code class="docutils literal notranslate"><span class="pre">17%</span></code>, lo cual refleja un error moderado. El coeficiente de determinación <code class="docutils literal notranslate"><span class="pre">R²</span></code> es <code class="docutils literal notranslate"><span class="pre">0.73</span></code> aproximado, lo que significa que el modelo logra explicar el <code class="docutils literal notranslate"><span class="pre">73%</span></code> de la variabilidad en los datos.</p>
+<p>En cuanto a los residuos, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Ljung-Box</span> <span class="pre">(0.692234)</span></code> sugiere que <strong>no hay autocorrelación significativa</strong>, lo cual es positivo. Por otro lado, el <code class="docutils literal notranslate"><span class="pre">valor</span> <span class="pre">p</span> <span class="pre">de</span> <span class="pre">Jarque-Bera</span> <span class="pre">(0.204984)</span></code> indica que los <strong>residuos presentan distribución normal</strong>, es decir, se cumplen los dos supuestos.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1383,8 +1387,8 @@ Best max_depth: 10, Best min_samples_split: 15
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtraindectree</span><span class="p">)),</span> <span class="n">ypredtraindectree</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtraindectree</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decision Tree (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2traindectree</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1406,9 +1410,10 @@ Best max_depth: 10, Best min_samples_split: 15
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ab27b80aba10a14247c9909ac3174b0a35ccf0fdc61976173b356ea0ed118a26.png" src="_images/ab27b80aba10a14247c9909ac3174b0a35ccf0fdc61976173b356ea0ed118a26.png" />
+<img alt="_images/2b8683d44407a5c91820c0f546ae7220ab6cb9fcaf5e5aa56a1436141e42dde2.png" src="_images/2b8683d44407a5c91820c0f546ae7220ab6cb9fcaf5e5aa56a1436141e42dde2.png" />
 </div>
 </div>
+<p>El rendimiento del modelo disminuyó notablemente en el conjunto de prueba, pasando de un <code class="docutils literal notranslate"><span class="pre">coeficiente</span> <span class="pre">de</span> <span class="pre">determinación</span> <span class="pre">(R²)</span></code> de <code class="docutils literal notranslate"><span class="pre">0.82</span></code> en el entrenamiento a <code class="docutils literal notranslate"><span class="pre">0.73</span></code> en el de prueba. Esto indica que el modelo tiene dificultades para generalizar a datos desconocidos. Aunque las líneas de valores predichos en la gráfica correspondiente a entrenamiento logran capturar algunos picos, su sensibilidad a valores extremos es limitada. En la gráfica del conjunto de prueba, se observa que la línea de predicciones sigue un patrón similar al de los valores reales, pero no logra aproximarse con la precisión necesaria. Esto evidencia que el modelo basado en árboles de decisión no se ajusta de manera adecuada a los datos y presenta deficiencias en su capacidad predictiva.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
@@ -1426,6 +1431,11 @@ Best max_depth: 10, Best min_samples_split: 15
 </section>
 <section id="random-forest">
 <h2><strong>Random Forest</strong><a class="headerlink" href="#random-forest" title="Link to this heading">#</a></h2>
+<p>Para este modelo, los hiperparámetros utilizados fueron:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">n_estimators</span></code></strong>: número de árboles en el bosque.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">max_depth</span></code></strong>: profundidad máxima de cada árbol en el bosque.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2_val</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1462,6 +1472,7 @@ Best n_estimators: 10, Best max_depth: 7
 </div>
 </div>
 </div>
+<p>Luego de entrenar el modelo con los datos de entrenamiento y realizar predicciones en el conjunto de validación, se evaluaron las combinaciones de hiperparámetros. La mejor de estas, que alcanzó el mayor valor de R² entre todos, fue <code class="docutils literal notranslate"><span class="pre">n_estimators</span> <span class="pre">=</span> <span class="pre">10</span></code> y <code class="docutils literal notranslate"><span class="pre">max_depth</span> <span class="pre">=</span> <span class="pre">7</span></code>, con un <code class="docutils literal notranslate"><span class="pre">R²</span> <span class="pre">de</span> <span class="pre">0.6962</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ranfor</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="n">max_depth</span><span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
@@ -1473,7 +1484,7 @@ Best n_estimators: 10, Best max_depth: 7
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7783696460828069
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7660328676169351
 </pre></div>
 </div>
 </div>
@@ -1531,13 +1542,13 @@ Best n_estimators: 10, Best max_depth: 7
     <tr>
       <th>0</th>
       <td>RANDOM FOREST</td>
-      <td>0.489788</td>
-      <td>0.699848</td>
-      <td>16.228501</td>
-      <td>0.611081</td>
-      <td>0.77837</td>
-      <td>0.218864</td>
-      <td>0.374976</td>
+      <td>0.517051</td>
+      <td>0.719063</td>
+      <td>16.628608</td>
+      <td>0.621354</td>
+      <td>0.766033</td>
+      <td>0.34443</td>
+      <td>0.697858</td>
     </tr>
   </tbody>
 </table>
@@ -1554,8 +1565,8 @@ Best n_estimators: 10, Best max_depth: 7
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtrainranfor</span><span class="p">)),</span> <span class="n">ypredtrainranfor</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtrainranfor</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Random Forest (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2trainranfor</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1577,7 +1588,7 @@ Best n_estimators: 10, Best max_depth: 7
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/49298dbe6ad35fabcec85e633f312970968b41dc4f1175185cba4bd7b429a6c8.png" src="_images/49298dbe6ad35fabcec85e633f312970968b41dc4f1175185cba4bd7b429a6c8.png" />
+<img alt="_images/77988f892416fcae70dd6800f5fbff971cf5df55b1f047c2a8b81cd825eda912.png" src="_images/77988f892416fcae70dd6800f5fbff971cf5df55b1f047c2a8b81cd825eda912.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1735,8 +1746,8 @@ Best n_estimators: 10, Best max_depth: 6
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtrainxgboost</span><span class="p">)),</span> <span class="n">ypredtrainxgboost</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtrainxgboost</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;XGBoost (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2trainxgboost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1758,7 +1769,7 @@ Best n_estimators: 10, Best max_depth: 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f9404b302640035ecb078c714b7cd49d11bb62e47958836ed6f5620cd57a5a9d.png" src="_images/f9404b302640035ecb078c714b7cd49d11bb62e47958836ed6f5620cd57a5a9d.png" />
+<img alt="_images/9855ab3a6a0399bff7dcf4ea0f86ccf23bdad90873893dcdc7376e7013ea1ea4.png" src="_images/9855ab3a6a0399bff7dcf4ea0f86ccf23bdad90873893dcdc7376e7013ea1ea4.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1811,10 +1822,16 @@ Best n_estimators: 10, Best max_depth: 6
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best R²: 0.6045617399345776
+Best C: 0.1, Best kernel: linear, Best gamma: scale
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svr</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.30000000000000004</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svr</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s1">&#39;scale&#39;</span><span class="p">)</span>
 
 <span class="n">svr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
 <span class="n">ypredsvr</span> <span class="o">=</span> <span class="n">svr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -1823,7 +1840,7 @@ Best n_estimators: 10, Best max_depth: 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6923764326410842
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.835982742196057
 </pre></div>
 </div>
 </div>
@@ -1832,7 +1849,7 @@ Best n_estimators: 10, Best max_depth: 6
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msesvr</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredsvr</span><span class="p">)</span>
 <span class="n">rmsesvr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">msesvr</span><span class="p">)</span>
-<span class="n">mapesvr</span> <span class="o">=</span><span class="n">MAPE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">ypredsvr</span><span class="p">)</span>
+<span class="n">mapesvr</span> <span class="o">=</span> <span class="n">MAPE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">ypredsvr</span><span class="p">)</span>
 <span class="n">maesvr</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredsvr</span><span class="p">)</span>
 <span class="n">r2svr</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredsvr</span><span class="p">)</span>
 <span class="n">ljungboxsvr</span><span class="p">,</span> <span class="n">jarquebaresvr</span> <span class="o">=</span> <span class="n">residuos</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypredsvr</span><span class="p">)</span> 
@@ -1881,13 +1898,13 @@ Best n_estimators: 10, Best max_depth: 6
     <tr>
       <th>0</th>
       <td>SVR</td>
-      <td>0.679827</td>
-      <td>0.824516</td>
-      <td>17.177351</td>
-      <td>0.626635</td>
-      <td>0.692376</td>
-      <td>0.000018</td>
-      <td>0.272468</td>
+      <td>0.362467</td>
+      <td>0.602052</td>
+      <td>15.125073</td>
+      <td>0.508772</td>
+      <td>0.835983</td>
+      <td>0.015236</td>
+      <td>0.14863</td>
     </tr>
   </tbody>
 </table>
@@ -1895,7 +1912,7 @@ Best n_estimators: 10, Best max_depth: 6
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_display</span> <span class="o">=</span> <span class="mi">250</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_display</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="n">ypredtrainsvr</span> <span class="o">=</span> <span class="n">svr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
@@ -1927,7 +1944,21 @@ Best n_estimators: 10, Best max_depth: 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/47d1288d9da1b0d388686d27c8f58538dede4c46784626701fb0d71f5a3375a6.png" src="_images/47d1288d9da1b0d388686d27c8f58538dede4c46784626701fb0d71f5a3375a6.png" />
+<img alt="_images/6f159de174b14651345465eb7806b3ea80889d725ff42b9392aa3470d52db529.png" src="_images/6f159de174b14651345465eb7806b3ea80889d725ff42b9392aa3470d52db529.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;C:/Users/valcd/OneDrive/Escritorio/MachinelearningUN/svrdata.pkl&quot;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">svr</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ypredtrainsvr</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ypredsvr</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">cuadro7</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -2020,8 +2051,8 @@ Best n_estimators: 10, Best max_depth: 6
 
 <span class="c1"># Gráfico para el conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)),</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ypredtrainreglin</span><span class="p">)),</span> <span class="n">ypredtrainreglin</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Real (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF66B2&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_display</span><span class="p">),</span> <span class="n">ypredtrainreglin</span><span class="p">[:</span><span class="n">n_display</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valor Predicho (Entrenamiento)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#D3D3D3&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Velocidad del viento&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Regresión Lineal (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2trainreglin</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -2043,7 +2074,7 @@ Best n_estimators: 10, Best max_depth: 6
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a99b3c76f71973b814f5a84010eb0f7c3fdf8f7d526edfb073da0855d84863a6.png" src="_images/a99b3c76f71973b814f5a84010eb0f7c3fdf8f7d526edfb073da0855d84863a6.png" />
+<img alt="_images/49bc51c8980b097225191ed8ddd2c47f5419a6ccc5cd58e923b275e085d0efa7.png" src="_images/49bc51c8980b097225191ed8ddd2c47f5419a6ccc5cd58e923b275e085d0efa7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2143,7 +2174,7 @@ Best n_estimators: 10, Best max_depth: 6
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Valentina Bustamante & Valentina Cabrera
 </p>
 
   </div>
