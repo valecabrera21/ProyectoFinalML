@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Análisis Exploratorio &#8212; My sample book</title>
+    <title>Análisis Exploratorio &#8212; Proyecto Final</title>
   
   
   
@@ -153,8 +153,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="_static/Logo-Uninorte.png" class="logo__image only-light" alt="Proyecto Final - Home"/>
+    <script>document.write(`<img src="_static/Logo-Uninorte.png" class="logo__image only-dark" alt="Proyecto Final - Home"/>`);</script>
   
   
 </a></div>
@@ -184,6 +184,7 @@
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Análisis Exploratorio</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Modelos.html"><strong>Modelos base</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="stacking_ws.html"><strong>Modelo original</strong></a></li>
 </ul>
 
     </div>
@@ -379,22 +380,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos"><strong>Librerías y módulos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-los-datos"><strong>Sobre los datos</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables">Análisis de las variables</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#univariado">Univariado</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-atipicos">Datos atípicos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables"><strong>Análisis de las variables</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#univariado"><strong>Univariado</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-atipicos"><strong>Datos atípicos</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariado">Bivariado</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-scatterplot">Gráficos Scatterplot()</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-regplot">Gráficos regplot()</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-correlacion">Matriz de correlación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariado"><strong>Bivariado</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-scatterplot"><strong>Gráficos Scatterplot()</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-regplot"><strong>Gráficos regplot()</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-correlacion"><strong>Matriz de correlación</strong></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nueva-base-de-datos">Nueva base de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nueva-base-de-datos"><strong>Nueva base de datos</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -408,8 +409,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analisis-exploratorio">
 <h1><strong>Análisis Exploratorio</strong><a class="headerlink" href="#analisis-exploratorio" title="Link to this heading">#</a></h1>
-<section id="librerias-y-modulos">
-<h2><strong>Librerías y módulos</strong><a class="headerlink" href="#librerias-y-modulos" title="Link to this heading">#</a></h2>
+<section id="librerias-y-modulos-necesarios">
+<h2><strong>Librerías y módulos necesarios</strong><a class="headerlink" href="#librerias-y-modulos-necesarios" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
@@ -1105,9 +1106,9 @@ anterior (AUT) (mB).</p></li>
 </ul>
 <p>Pasemos a analizar cada una de estas.</p>
 <section id="analisis-de-las-variables">
-<h3>Análisis de las variables<a class="headerlink" href="#analisis-de-las-variables" title="Link to this heading">#</a></h3>
+<h3><strong>Análisis de las variables</strong><a class="headerlink" href="#analisis-de-las-variables" title="Link to this heading">#</a></h3>
 <section id="univariado">
-<h4>Univariado<a class="headerlink" href="#univariado" title="Link to this heading">#</a></h4>
+<h4><strong>Univariado</strong><a class="headerlink" href="#univariado" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p><strong>hora</strong></p></li>
 </ul>
@@ -1775,15 +1776,15 @@ En cuanto a los cuartiles, se observa que las observaciones dentro del primer cu
 <p>En el histograma, nuevamente podemos observar que se cumple lo mencionado durante la interpretación de las variables descriptivas relacionado con  que los datos están concentrados alrededor de la media, con las barras de mayor frecuencia ubicada aproximadamente entre <code class="docutils literal notranslate"><span class="pre">881</span> <span class="pre">mB</span></code> y <code class="docutils literal notranslate"><span class="pre">890</span> <span class="pre">mB</span></code>. Evidentemente, los datos no siguen una distribución normal. Por otro lado, el boxplot revela que tanto los bigotes como la caja muestran una variabilidad relativamente simétrica, con valores entre <code class="docutils literal notranslate"><span class="pre">880</span> <span class="pre">mB</span></code> y <code class="docutils literal notranslate"><span class="pre">895</span> <span class="pre">mB</span></code> aproximadamente. Sin embargo, también notamos la presencia de una cantidad considerable de valores atípicos fuera de ambos bigotes.</p>
 </section>
 <section id="datos-atipicos">
-<h4>Datos atípicos<a class="headerlink" href="#datos-atipicos" title="Link to this heading">#</a></h4>
+<h4><strong>Datos atípicos</strong><a class="headerlink" href="#datos-atipicos" title="Link to this heading">#</a></h4>
 <p>En grupo, hemos decidido no imputar los datos atípicos, a pesar de su gran cantidad. Esta decisión se debe a que estos valores representan escenarios reales y reflejan la variabilidad asociada a diversos aspectos meteorológicos. Creemos que, al imputar estos datos, podríamos introducir un sesgo en la predicción de la variable respuesta, lo cual afectaría la validez de nuestros resultados.</p>
 </section>
 </section>
 <section id="bivariado">
-<h3>Bivariado<a class="headerlink" href="#bivariado" title="Link to this heading">#</a></h3>
+<h3><strong>Bivariado</strong><a class="headerlink" href="#bivariado" title="Link to this heading">#</a></h3>
 <p>A continuación, presentamos los gráficos <code class="docutils literal notranslate"><span class="pre">Scatterplot()</span></code> y <code class="docutils literal notranslate"><span class="pre">Regplot()</span></code> que permiten visualizar los análisis bivariados en relación con la variable <code class="docutils literal notranslate"><span class="pre">velocidadviento</span></code>. Cada gráfico compara <code class="docutils literal notranslate"><span class="pre">velocidadviento</span></code> con las demás variables del conjunto de datos, excluyendo <code class="docutils literal notranslate"><span class="pre">hora</span></code>, ya que no se considerará en este análisis. Con esto, lograremos ver si existe relación o no, y qué tan fuerte resulta ser en caso de que sí.</p>
 <section id="graficos-scatterplot">
-<h4>Gráficos Scatterplot()<a class="headerlink" href="#graficos-scatterplot" title="Link to this heading">#</a></h4>
+<h4><strong>Gráficos Scatterplot()</strong><a class="headerlink" href="#graficos-scatterplot" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">respuesta</span> <span class="o">=</span> <span class="s1">&#39;velocidadviento&#39;</span>
@@ -1824,7 +1825,7 @@ En cuanto a los cuartiles, se observa que las observaciones dentro del primer cu
 <p>En cuanto a los gráficos de las últimas variables, como la presión atmosférica (tanto máxima como mínima), tampoco muestran una tendencia clara, con puntos muy dispersos. No parece haber una relación directa entre la <code class="docutils literal notranslate"><span class="pre">presión</span> <span class="pre">y</span> <span class="pre">la</span> <span class="pre">velocidad</span> <span class="pre">del</span> <span class="pre">viento</span></code>. Por otro lado, en el gráfico de <code class="docutils literal notranslate"><span class="pre">velocidad</span> <span class="pre">del</span> <span class="pre">viento</span> <span class="pre">vs.</span> <span class="pre">precipitación</span> <span class="pre">total</span></code>, aunque la dispersión es amplia, se puede notar un ligero incremento de la velocidad del viento con mayores niveles de precipitación, aunque esta relación es débil. Finalmente, el gráfico de <code class="docutils literal notranslate"><span class="pre">velocidad</span> <span class="pre">del</span> <span class="pre">viento</span> <span class="pre">vs.</span> <span class="pre">ráfaga</span> <span class="pre">máxima</span></code> es el único que muestra una correlación positiva clara, donde un aumento en la ráfaga máxima coincide con un aumento en la velocidad del viento, lo que indica una relación directa entre estas dos variables.</p>
 </section>
 <section id="graficos-regplot">
-<h4>Gráficos regplot()<a class="headerlink" href="#graficos-regplot" title="Link to this heading">#</a></h4>
+<h4><strong>Gráficos regplot()</strong><a class="headerlink" href="#graficos-regplot" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">respuesta</span> <span class="o">=</span> <span class="s1">&#39;velocidadviento&#39;</span>
@@ -1859,7 +1860,7 @@ En cuanto a los cuartiles, se observa que las observaciones dentro del primer cu
 <p>Al observar estos gráficos generados, que incluyen tanto los puntos de dispersión como las líneas de regresión, se puede analizar la correlación entre la variable dependiente <code class="docutils literal notranslate"><span class="pre">velocidadviento</span></code> y las variables explicativas. En general, las tendencias lineales mostradas en las líneas de regresión confirman que no existe una correlación fuerte en la mayoría de los casos, ya que las pendientes de las líneas son casi planas y los puntos de dispersión están distribuidos uniformemente a lo largo de los gráficos, exceptuando lo anteriormente mencionado con la variable <code class="docutils literal notranslate"><span class="pre">rafagamaxima</span></code> que sí presenta una notable correlación positiva.</p>
 </section>
 <section id="matriz-de-correlacion">
-<h4>Matriz de correlación<a class="headerlink" href="#matriz-de-correlacion" title="Link to this heading">#</a></h4>
+<h4><strong>Matriz de correlación</strong><a class="headerlink" href="#matriz-de-correlacion" title="Link to this heading">#</a></h4>
 <p>Ahora, pasaremos a mostrar la matriz de correlación para observar los coeficientes de correlación que corroboran lo mencionado anteriormente con los gráficos de dispersión generados mediante scatterplot() y regplot(). Esta matriz nos permitirá identificar la fuerza de las relaciones entre las variables, confirmando si efectivamente existe o no una correlación significativa entre la velocidad del viento y las variables explicativas, o incluso entre las mismas variables explicativas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2093,7 +2094,7 @@ En cuanto a los cuartiles, se observa que las observaciones dentro del primer cu
 </section>
 </section>
 <section id="nueva-base-de-datos">
-<h2>Nueva base de datos<a class="headerlink" href="#nueva-base-de-datos" title="Link to this heading">#</a></h2>
+<h2><strong>Nueva base de datos</strong><a class="headerlink" href="#nueva-base-de-datos" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dataparcial2.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -2168,22 +2169,22 @@ En cuanto a los cuartiles, se observa que las observaciones dentro del primer cu
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos"><strong>Librerías y módulos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-los-datos"><strong>Sobre los datos</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables">Análisis de las variables</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#univariado">Univariado</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-atipicos">Datos atípicos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables"><strong>Análisis de las variables</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#univariado"><strong>Univariado</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-atipicos"><strong>Datos atípicos</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariado">Bivariado</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-scatterplot">Gráficos Scatterplot()</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-regplot">Gráficos regplot()</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-correlacion">Matriz de correlación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariado"><strong>Bivariado</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-scatterplot"><strong>Gráficos Scatterplot()</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-regplot"><strong>Gráficos regplot()</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-correlacion"><strong>Matriz de correlación</strong></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nueva-base-de-datos">Nueva base de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nueva-base-de-datos"><strong>Nueva base de datos</strong></a></li>
 </ul>
   </nav></div>
 

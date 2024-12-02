@@ -10,13 +10,13 @@ Para abordar este desafío, contamos con diversas variables meteorológicas, tal
 
 # **Objetivos**
 
-**Objetivo General:**
+**Objetivos Específicos:**
 1. Realizar un correcto análisis exploratorio de los datos que nos permita comprender claramente nuestra base y a su vez realizar los respectivos procesos necesarios.
 2. Implementar los 8 modelos de regresión dados en clase basándonos en la métrica R2 para encontrar el mejor en cada caso.
 3. Proponer e implementar un modelo original de regresión que se ajuste a los datos y no haya sido utilizado antes.
 
-**Objetivo Específico:**
-1. Demostrar que usar un modelo de mayor complejidad que incluya al menos uno de los modelos vistos en clase (el mejor) es superior a todos los demás.
+**Objetivo General:**
+1. Demostrar que el modelo original propuesto cumplió con el objetivo de mejorar el rendimiento de cada uno de los modelos base implementados.
 
 
 
